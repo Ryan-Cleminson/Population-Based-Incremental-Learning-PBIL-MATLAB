@@ -1,14 +1,14 @@
 %%%%%%%%%%%%%%%%%%%%%%
 %   INITIALISATION   %
 %%%%%%%%%%%%%%%%%%%%%%
-EpochSize = 200 % Number of dtrials within the Epoch
-TrialLength = 36
-PV = 0.5*ones(1,TrialLength) % Initial probability vector to generate random numbers
-PVPrecision = 0.001 % The rate which the program can determine the best cost with respect to accuracy
-Terminals = 12 % Number of terminals in the cost table
-MinCost = 0 % Initialisation of minCost
-TestNum = 2000 % Number of Times to Test the Large Sample solution
-Constraint = 3 % Max number of Terminals each concentrator can handle
+EpochSize = 200; % Number of dtrials within the Epoch
+TrialLength = 36;
+PV = 0.5*ones(1,TrialLength); % Initial probability vector to generate random numbers
+PVPrecision = 0.001; % The rate which the program can determine the best cost with respect to accuracy
+Terminals = 12; % Number of terminals in the cost table
+MinCost = 0; % Initialisation of minCost
+TestNum = 2000; % Number of Times to Test the Large Sample solution
+Constraint = 7; % Max number of Terminals each concentrator can handle
 Incrementer = 1; % Initialisation of Incrementer which is an index
 FinalCost = zeros(1,TestNum-1); % Initialisation of FinalCost which is a ...
                                 % matrix of all the costs to determine the best cost
@@ -38,7 +38,7 @@ while Incrementer <= TestNum
     for index = 1:EpochSize % To check each sample(Trial)
         
         Trial = Epoch(index,:); % trialSample takes trial 'index'
-        DecimalOut = zeros(1,12); % Initialisation of DecimalOut 
+        DecimalOut = zeros(1,12); % Initialisation of DecimalOut
         individualTrialMatrix = reshape(Trial,3,12);
         
         for index2 = 1:Terminals
@@ -77,6 +77,7 @@ while Incrementer <= TestNum
             end
             
         end
+        MinCost
     end
     
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -104,16 +105,20 @@ while Incrementer <= TestNum
     %%%%%%%%%%%%%%%%%%%%%%%
     FinalCost(Incrementer) = MinCost; % Places the minimum cost of the test into an ...
                                       % array element to check the overall final minimum cost
-    MinCost % Prints minimum costs
+    %MinCost % Prints minimum costs
     MinCost = 0; % Resets the minimum cost to zero for the next test
     FinalMin = Epoch(pos,:); % FinalMin is loaded from the Epoch that ...
                              % produced the minimum cost outcome
                            
     Incrementer = Incrementer + 1; % Increments the incrementer for each test
+    
+    
+    index = 1:1:(TestNum);
+    figure(1)
+    plot(FinalCost)
+   
 end
 
-index = 1:1:(TestNum);
-figure(1)
-plot(index,FinalCost)
+
 
 
